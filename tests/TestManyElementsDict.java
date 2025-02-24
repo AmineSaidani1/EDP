@@ -2,7 +2,7 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DictTest {
+class TestManyElementsDict {
     private Dict<String, Integer> diccionario;
     @BeforeEach
     void setUp() {
@@ -13,9 +13,12 @@ class DictTest {
     void testPutAndGet() {
         diccionario.put("uno", 1);
         diccionario.put("dos", 2);
+        diccionario.put("siete", 7);
+
 
         assertEquals(1, diccionario.get("uno"));
         assertEquals(2, diccionario.get("dos"));
+        assertEquals(7, diccionario.get("siete"));
     }
 
     @Test

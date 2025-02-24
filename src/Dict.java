@@ -1,6 +1,7 @@
 /**
  * TODO
  * crear y desarrollar los metodos:
+ * constructor Dict()
  * void put(K key, V value)
  * V get(K key)
  * void remove(K key)
