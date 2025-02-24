@@ -80,8 +80,32 @@ public class Dict<K, V> {
         return get(key) != null;
     }
 
-    public int size() {}
+    public int getSize() {
+        return Size;
+    }
 
-    public boolean isEmpty() {}
+    public void reSize() {
+        Node[] oldTable = Table;
+        Table = new Node[Capacity * 2];
+        Node oldHead = head;
+        Node prev = null;
+        Node current = null;
+        Size = 0;
+
+        while (current != null) {
+            addElement(current.key, current.value);
+            current = current.nextInOrder;
+        }
+
+    }
+
+    private void addElement(K key, V value) {
+
+    }
+
+    public boolean isEmpty() {
+
+
+    }
 
 }
