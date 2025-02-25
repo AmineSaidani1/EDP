@@ -9,11 +9,16 @@
  * int size()
  * boolean isEmpty()
  */
+/**
+ * innciar la tabla con objetos y luego hacer cast y cambiarlo a node, al crear el nodo en el metodo put
+*/
+import com.sun.jdi.Value;
 
+import java.security.Key;
 import java.util.*;
 
 public class Dict<K, V> {
-    private class Node{
+    public class Node{
 
         K key;
         V value;
@@ -26,13 +31,13 @@ public class Dict<K, V> {
         }
     }
 
-    private Node[] Table;
+    private Object[] Table;
     private static final int Capacity = 12;
     private int Size;
 
 // Teoria --> Posición = H(clave) mod Ltabla(tamaño de la tabla)
     public Dict() {
-        this.Table = new Node[Capacity];
+        this.Table = new Object[Capacity];
         this.Size = 0;
     }
     // Usar Math.abs(ya que tal vez puedan llegar a dar valores negativos)
@@ -44,7 +49,7 @@ public class Dict<K, V> {
     //Además de eso, hay que comprobar si se supera el 80% de la capacidad.
     public void put(K key, V value) {
         int Index = Hash(key);
-        Node Current = Table[Index];
+        Dict<K, V>.Node Current = (Dict<K, V>.Node) Table[Index];
         while (Current != null) {
             if (Current.key.equals(key)) {
                 Current.value = value;

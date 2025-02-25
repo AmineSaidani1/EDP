@@ -1,9 +1,12 @@
+import com.sun.jdi.Value;
 import org.junit.jupiter.api.*;
+
+import java.security.Key;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TestManyElementsDict {
-    private Dict<String, Integer> diccionario;
+    private Dict diccionario;
     @BeforeEach
     void setUp() {
         diccionario = new Dict();
