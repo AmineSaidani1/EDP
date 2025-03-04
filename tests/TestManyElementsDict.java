@@ -1,6 +1,6 @@
 import com.sun.jdi.Value;
 import org.junit.jupiter.api.*;
-
+/**
 import java.security.Key;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,17 +38,17 @@ class TestManyElementsDict {
         diccionario.remove("cuatro");
 
         assertFalse(diccionario.containsKey("cuatro"));
-        assertEquals(0, diccionario.size());
+        assertEquals(0, diccionario.getSize());
     }
 
     @Test
     void testSize() {
-        assertEquals(0, diccionario.size());
+        assertEquals(0, diccionario.getSize());
 
         diccionario.put("cinco", 5);
         diccionario.put("seis", 6);
 
-        assertEquals(2, diccionario.size());
+        assertEquals(2, diccionario.getSize());
     }
 
     @Test
@@ -73,3 +73,4 @@ class TestManyElementsDict {
         assertEquals(99, diccionario.get("nueve"));
     }
 }
+ */

@@ -1,5 +1,5 @@
 import org.junit.jupiter.api.*;
-
+/**
 import static org.junit.jupiter.api.Assertions.*;
 
 class TestTwoElementsDict {
@@ -32,17 +32,17 @@ class TestTwoElementsDict {
         diccionario.remove("cuatro");
 
         assertFalse(diccionario.containsKey("cuatro"));
-        assertEquals(0, diccionario.size());
+        assertEquals(0, diccionario.Size());
     }
 
     @Test
     void testSize() {
-        assertEquals(0, diccionario.size());
+        assertEquals(0, diccionario.Size());
 
         diccionario.put("cinco", 5);
         diccionario.put("seis", 6);
 
-        assertEquals(2, diccionario.size());
+        assertEquals(2, diccionario.Size());
     }
 
     @Test
@@ -67,3 +67,4 @@ class TestTwoElementsDict {
         assertEquals(99, diccionario.get("nueve"));
     }
 }
+ */

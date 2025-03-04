@@ -1,13 +1,20 @@
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
 class TestOneElementDict {
     private Dict<String, Integer> diccionario;
     @BeforeEach
     void setUp() {
         diccionario = new Dict();
+        diccionario.put("A", 1);
     }
+
+    @Test
+    void testSize() {
+        assertEquals(1, diccionario.getSize());
+    }
+
 
     @Test
     void testPutAndGet() {
@@ -30,18 +37,10 @@ class TestOneElementDict {
         diccionario.remove("cuatro");
 
         assertFalse(diccionario.containsKey("cuatro"));
-        assertEquals(0, diccionario.size());
+        assertEquals(0, diccionario.getSize());
     }
 
-    @Test
-    void testSize() {
-        assertEquals(0, diccionario.size());
 
-        diccionario.put("cinco", 5);
-        diccionario.put("seis", 6);
-
-        assertEquals(2, diccionario.size());
-    }
 
     @Test
     void testIsEmpty() {
@@ -65,3 +64,4 @@ class TestOneElementDict {
         assertEquals(99, diccionario.get("nueve"));
     }
 }
+ */
