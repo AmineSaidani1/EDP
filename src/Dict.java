@@ -207,3 +207,6 @@ public class Dict<K, V> {
 
 // ¿Por qué?
 // - Reduce el acceso secuencial, mejorando el tiempo de búsqueda.
+
+// cuando se elimina un elemento se cambia el size?
+// añadir toString para claves y valores

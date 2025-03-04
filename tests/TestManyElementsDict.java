@@ -1,75 +1,76 @@
-import com.sun.jdi.Value;
 import org.junit.jupiter.api.*;
-
-import java.security.Key;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-class TestManyElementsDict {
-    private Dict diccionario;
+public class TestManyElementsDict {
+    private Dict<String, Integer> diccionario;
+
     @BeforeEach
     void setUp() {
-        diccionario = new Dict();
+        diccionario = new Dict<>(); // Reinicializa el diccionario antes de cada prueba
+        // Añade muchos elementos al diccionario
+        for (int i = 0; i < 100; i++) {
+            diccionario.put("Key" + i, i); // Claves: "Key0", "Key1", ..., "Key99"
+        }
     }
 
     @Test
-    void testPutAndGet() {
-        diccionario.put("uno", 1);
-        diccionario.put("dos", 2);
-        diccionario.put("siete", 7);
-
-
-        assertEquals(1, diccionario.get("uno"));
-        assertEquals(2, diccionario.get("dos"));
-        assertEquals(7, diccionario.get("siete"));
-    }
-
-    @Test
-    void testContainsKey() {
-        diccionario.put("tres", 3);
-
-        assertTrue(diccionario.containsKey("tres"));
-        assertFalse(diccionario.containsKey("cuatro"));
-    }
-
-    @Test
-    void testRemove() {
-        diccionario.put("cuatro", 4);
-        diccionario.remove("cuatro");
-
-        assertFalse(diccionario.containsKey("cuatro"));
-        assertEquals(0, diccionario.getSize());
+    void testNotEmptyDict() {
+        assertFalse(diccionario.isEmpty()); // Verifica que el diccionario no esté vacío
     }
 
     @Test
     void testSize() {
-        assertEquals(0, diccionario.getSize());
-
-        diccionario.put("cinco", 5);
-        diccionario.put("seis", 6);
-
-        assertEquals(2, diccionario.getSize());
+        int size = diccionario.size();
+        assertEquals(100, size); // Verifica que el tamaño del diccionario sea 100
     }
 
     @Test
-    void testIsEmpty() {
-        assertTrue(diccionario.isEmpty());
-
-        diccionario.put("siete", 7);
-
-        assertFalse(diccionario.isEmpty());
+    void testGet() {
+        for (int i = 0; i < 100; i++) {
+            assertEquals(i, diccionario.get("Key" + i)); // Verifica que cada valor sea correcto
+        }
+        assertNull(diccionario.get("InvalidKey")); // Verifica que una clave no existente devuelva null
     }
 
     @Test
-    void testGetNonExistentKey() {
-        assertNull(diccionario.get("ocho"));
+    void testContainsKey() {
+        for (int i = 0; i < 100; i++) {
+            assertTrue(diccionario.containsKey("Key" + i)); // Verifica que cada clave exista
+        }
+        assertFalse(diccionario.containsKey("InvalidKey")); // Verifica que una clave no existente no esté en el diccionario
+    }
+
+    @Test
+    void testRemove() {
+        diccionario.remove("Key50"); // Elimina un elemento específico
+        assertFalse(diccionario.containsKey("Key50")); // Verifica que la clave eliminada ya no exista
+        assertEquals(99, diccionario.size()); // Verifica que el tamaño del diccionario se reduzca a 99
     }
 
     @Test
     void testPutOverwrite() {
-        diccionario.put("nueve", 9);
-        diccionario.put("nueve", 99);
+        diccionario.put("Key50", 1000); // Sobrescribe el valor asociado a "Key50"
+        assertEquals(1000, diccionario.get("Key50")); // Verifica que el valor se haya actualizado correctamente
+        assertEquals(100, diccionario.size()); // Verifica que el tamaño del diccionario no cambie
+    }
 
-        assertEquals(99, diccionario.get("nueve"));
+    @Test
+    void testRemoveAllElements() {
+        for (int i = 0; i < 100; i++) {
+            diccionario.remove("Key" + i); // Elimina todos los elementos uno por uno
+        }
+        assertTrue(diccionario.isEmpty()); // Verifica que el diccionario esté vacío
+        assertEquals(0, diccionario.size()); // Verifica que el tamaño del diccionario sea 0
+    }
+
+    @Test
+    void testAddMoreElements() {
+        for (int i = 100; i < 200; i++) {
+            diccionario.put("Key" + i, i); // Añade más elementos al diccionario
+        }
+        assertEquals(200, diccionario.size()); // Verifica que el tamaño del diccionario sea 200
+        for (int i = 0; i < 200; i++) {
+            assertTrue(diccionario.containsKey("Key" + i)); // Verifica que todas las claves existan
+        }
     }
 }
