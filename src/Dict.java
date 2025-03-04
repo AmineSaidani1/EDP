@@ -24,43 +24,42 @@ public class Dict<K, V> {
     }
 
     public void put(K key, V value) {
-        if ((double) size / capacity > LOAD_FACTOR) {
-            reSize();
-        }
-
-        int index = hash(key);
-        Node current = (Node) table[index];
-
-        if (current == null) {
-            table[index] = new Node(key, value);
-            size++;
+        if (key == null) {
+            mensaje(key);
             return;
         }
-
-        Node prev = null;
+        int index = hash(key);
+        Node current = (Node) table[index];
         while (current != null) {
-            if (current.key == key || (current.key != null && current.key.equals(key))) {
+            if (current.key.equals(key)) {
                 current.value = value;
                 return;
             }
-            prev = current;
             current = current.next;
         }
-
-        prev.next = new Node(key, value);
+        Node newNode = new Node(key, value);
+        newNode.next = (Node) table[index];
+        table[index] = newNode;
         size++;
+        if ((double) size / capacity > 0.8) {
+            reSize();
+        }
     }
 
     public V get(K key) {
+        if (key == null) {
+            mensaje(key);
+            return null;
+        }
         int index = hash(key);
         Node current = (Node) table[index];
-
         while (current != null) {
-            if (current.key == key || (current.key != null && current.key.equals(key))) {
+            if (current.key.equals(key)) {
                 return current.value;
             }
             current = current.next;
         }
+        mensaje2(key);
         return null;
     }
 
