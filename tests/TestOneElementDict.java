@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-/**
+
 class TestOneElementDict {
     private Dict<String, Integer> diccionario;
     @BeforeEach
@@ -64,4 +64,3 @@ class TestOneElementDict {
         assertEquals(99, diccionario.get("nueve"));
     }
 }
- */
