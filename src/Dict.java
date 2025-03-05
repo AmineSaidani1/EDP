@@ -29,22 +29,30 @@ public class Dict<K, V> {
             return;
         }
         int index = hash(key);
+        Node newNode = new Node(key, value);
+        Node previous = null;
         Node current = (Node) table[index];
+
         while (current != null) {
             if (current.key.equals(key)) {
                 current.value = value;
                 return;
             }
+            previous = current;
             current = current.next;
         }
-        Node newNode = new Node(key, value);
-        newNode.next = (Node) table[index];
-        table[index] = newNode;
+        if (previous == null) {
+            table[index] = newNode;
+        } else{
+            previous.next = newNode;
+        }
         size++;
         if ((double) size / capacity > 0.8) {
             reSize();
         }
     }
+
+
 
     public V get(K key) {
         if (key == null) {

@@ -43,10 +43,15 @@ public class Main {
         System.out.println("¿Está vacío el diccionario? " + dict.isEmpty()); // false
 
         // Eliminar todos los elementos
-        for (Object key : dict.keys()) {
-            dict.remove((String) key);
-        }
+        Object[] keys = dict.keys();
 
+        for (Object key : keys) {
+            if (key instanceof String) {
+                String stringKey = (String) key;
+                dict.remove(stringKey);
+            }
+        }
         System.out.println("¿Está vacío después de eliminar todo? " + dict.isEmpty()); // true
+        System.out.println("finito");
     }
 }
