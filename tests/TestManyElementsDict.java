@@ -50,8 +50,8 @@ public class TestManyElementsDict {
     @Test
     void testPutOverwrite() {
         diccionario.put("Key50", 1000); // Sobrescribe el valor asociado a "Key50"
-        assertEquals(1000, diccionario.get("Key50")); // Verifica que el valor se haya actualizado correctamente
-        assertEquals(100, diccionario.size()); // Verifica que el tamaño del diccionario no cambie
+        assertEquals(1000, diccionario.get("Key50"), "el valor no se ha actualizado despues de sobrescribirlo"); // Verifica que el valor se haya actualizado correctamente
+        assertEquals(100, diccionario.size(), "el valor no se ha actualizado despues de sobrescribirlo"); // Verifica que el tamaño del diccionario no cambie
     }
 
     @Test

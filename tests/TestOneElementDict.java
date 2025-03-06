@@ -43,7 +43,7 @@ public class TestOneElementDict {
     @Test
     void testPutOverwrite() {
         diccionario.put("A", 2); // Sobrescribe el valor asociado a "A"
-        assertEquals(2, diccionario.get("A")); // Verifica que el valor se haya actualizado correctamente
-        assertEquals(1, diccionario.size()); // Verifica que el tamaño del diccionario siga siendo 1
+        assertEquals(2, diccionario.get("A"), "el valor no se ha actualizado despues de sobrescribirlo"); // Verifica que el valor se haya actualizado correctamente
+        assertEquals(1, diccionario.size(), "el tamaño se ha modificado"); // Verifica que el tamaño del diccionario siga siendo 1
     }
 }

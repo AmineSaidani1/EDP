@@ -23,6 +23,7 @@ public class Dict<K, V> {
         return Math.abs(key.hashCode() % capacity);
     }
 
+    //TODO: que modificar el código en put para sobrescribir el valor si la clave ya existe.
     public void put(K key, V value) {
         if (key == null) {
             mensaje(key);
@@ -34,10 +35,6 @@ public class Dict<K, V> {
         Node current = (Node) table[index];
 
         while (current != null) {
-            if (current.key.equals(key)) {
-                current.value = value;
-                return;
-            }
             previous = current;
             current = current.next;
         }
@@ -217,3 +214,5 @@ public class Dict<K, V> {
 
 // cuando se elimina un elemento se cambia el size?
 // añadir toString para claves y valores
+
+//TODO: hay que modificar el codigo en put para

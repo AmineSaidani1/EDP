@@ -52,6 +52,5 @@ public class Main {
             }
         }
         System.out.println("¿Está vacío después de eliminar todo? " + dict.isEmpty()); // true
-        System.out.println("finito");
     }
 }

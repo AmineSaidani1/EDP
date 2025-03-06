@@ -48,9 +48,9 @@ public class TestTwoElementsDict {
     void testPutOverwrite() {
         diccionario.put("A", 10); // Sobrescribe el valor asociado a "A"
         diccionario.put("B", 20); // Sobrescribe el valor asociado a "B"
-        assertEquals(10, diccionario.get("A")); // Verifica que el valor de "A" se haya actualizado correctamente
-        assertEquals(20, diccionario.get("B")); // Verifica que el valor de "B" se haya actualizado correctamente
-        assertEquals(2, diccionario.size()); // Verifica que el tamaño del diccionario siga siendo 2
+        assertEquals(10, diccionario.get("A"), "el valor no se ha actualizado despues de sobrescribirlo"); // Verifica que el valor de "A" se haya actualizado correctamente
+        assertEquals(20, diccionario.get("B"), "el valor no se ha actualizado despues de sobrescribirlo"); // Verifica que el valor de "B" se haya actualizado correctamente
+        assertEquals(2, diccionario.size(), "el tamaño se ha cambiado al sobrescribir"); // Verifica que el tamaño del diccionario siga siendo 2
     }
 
     @Test
