@@ -180,6 +180,34 @@ public class Dict<K, V> {
             this.next = null;
         }
     }
+
+    public String toStringKeys(Object[] keyArray) {
+        StringBuilder result = new StringBuilder("{ ");
+
+        for (int i = 0; i < keyArray.length; i++) {
+            result.append(String.valueOf(keyArray[i]));
+
+            if (i < keyArray.length - 1) {
+                result.append(", ");
+            }
+        }
+        result.append(" }");
+        return result.toString();
+    }
+
+    public String toStringValues(Object[] valueArray) {
+        StringBuilder result = new StringBuilder("{ ");
+
+        for (int i = 0; i < valueArray.length; i++) {
+            result.append(String.valueOf(valueArray[i]));
+
+            if (i < valueArray.length - 1) {
+                result.append(", ");
+            } 
+        }
+        result.append(" }");
+        return result.toString();
+    }
 }
 
 
