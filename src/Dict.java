@@ -169,6 +169,8 @@ public class Dict<K, V> {
         return result;
     }
 
+
+
     public class Node {
         K key;
         V value;
@@ -181,9 +183,9 @@ public class Dict<K, V> {
         }
     }
 
-    public String toStringKeys(Object[] keyArray) {
+    public String toStringKeys() {
         StringBuilder result = new StringBuilder("{ ");
-
+        Object[] keyArray = this.keys();
         for (int i = 0; i < keyArray.length; i++) {
             result.append(String.valueOf(keyArray[i]));
 
@@ -195,9 +197,9 @@ public class Dict<K, V> {
         return result.toString();
     }
 
-    public String toStringValues(Object[] valueArray) {
+    public String toStringValues() {
         StringBuilder result = new StringBuilder("{ ");
-
+        Object[] valueArray = this.values();
         for (int i = 0; i < valueArray.length; i++) {
             result.append(String.valueOf(valueArray[i]));
 

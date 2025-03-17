@@ -32,6 +32,13 @@ public class TestEmptyDict {
     }
 
     @Test
+    void testPutNullKey() {
+        diccionario.put(null, 1);
+    }
+
+
+
+    @Test
     void testGet() {
         diccionario.put("A", 1);
         diccionario.put("B", 2);
@@ -54,4 +61,7 @@ public class TestEmptyDict {
         diccionario.remove("A");
         assertFalse(diccionario.containsKey("A"));
     }
+
 }
+
+//TODO probar los metodos entryset, keys y values
