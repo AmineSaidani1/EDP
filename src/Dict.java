@@ -13,7 +13,7 @@ public class Dict<K, V> {
     }
 
     private void mensaje(K key) {
-        System.err.println("La clave no puede ser nula");
+        throw new NullPointerException("Key cannot be null");
     }
     private void mensaje2(K key) {
         System.err.println("Clave:" + key + " no encontrada");
@@ -23,7 +23,6 @@ public class Dict<K, V> {
         return Math.abs(key.hashCode() % capacity);
     }
 
-    //TODO: que modificar el código en put para sobrescribir el valor si la clave ya existe.
     public void put(K key, V value) {
         if (key == null) {
             mensaje(key);
@@ -35,16 +34,20 @@ public class Dict<K, V> {
         Node current = (Node) table[index];
 
         while (current != null) {
+            if (current.key.equals(key)) {
+                current.value = value; // Overwrite the value
+                return;
+            }
             previous = current;
             current = current.next;
         }
         if (previous == null) {
             table[index] = newNode;
-        } else{
+        } else {
             previous.next = newNode;
         }
         size++;
-        if ((double) size / capacity > 0.8) {
+        if ((double) size / capacity > LOAD_FACTOR) {
             reSize();
         }
     }
@@ -123,8 +126,10 @@ public class Dict<K, V> {
     }
 
     public K[] keys() {
-        // Usamos Array.newInstance() para crear un arreglo genérico del tipo K
-        K[] keyArray = (K[]) java.lang.reflect.Array.newInstance(table.getClass().getComponentType(), size);
+        if (size == 0) {
+            return (K[]) new Object[0]; // Return an empty array of type K
+        }
+        K[] keyArray = (K[]) java.lang.reflect.Array.newInstance(((Node) table[0]).key.getClass(), size);
         int count = 0;
 
         for (int i = 0; i < capacity; i++) {
@@ -155,7 +160,7 @@ public class Dict<K, V> {
 
 
     public Node[] entrySet() {
-        Object[] entries = new Object[size];
+        Node[] entries = (Node[]) java.lang.reflect.Array.newInstance(Node.class, size);
         int count = 0;
 
         for (int i = 0; i < capacity; i++) {
@@ -210,6 +215,27 @@ public class Dict<K, V> {
         result.append(" }");
         return result.toString();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder("{");
+        boolean first = true; // Flag to handle the first element (no comma before it)
+
+        // Iterate over all buckets in the hash table
+        for (int i = 0; i < capacity; i++) {
+            Node current = (Node) table[i];
+            while (current != null) {
+                if (!first) {
+                    result.append(", "); // Add a comma before each element except the first
+                }
+                result.append(current.key).append(": ").append(current.value); // Append key=value
+                first = false; // After the first element, set the flag to false
+                current = current.next; // Move to the next node in the linked list
+            }
+        }
+        result.append("}"); // Close the dictionary representation
+        return result.toString();
+    }
 }
 
 
@@ -245,4 +271,4 @@ public class Dict<K, V> {
 // cuando se elimina un elemento se cambia el size?
 // añadir toString para claves y valores
 
-//TODO: hay que modificar el codigo en put para
+//TODO: guardar el orden de inserción de elementos.

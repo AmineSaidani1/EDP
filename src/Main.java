@@ -38,6 +38,7 @@ public class Main {
         // Listar claves y valores
         System.out.println("Claves en el diccionario: " + dict.toStringKeys());
         System.out.println("Valores en el diccionario: " + dict.toStringValues());
+        System.out.println(dict);
 
         // Verificar si está vacío
         System.out.println("¿Está vacío el diccionario? " + dict.isEmpty()); // false
