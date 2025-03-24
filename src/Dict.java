@@ -4,12 +4,90 @@ public class Dict<K, V> {
 
     private Object[] table; // Tabla hash que almacena listas de nodos
     private int capacity; // Capacidad actual de la tabla
-    private int size; // Número de elementos en el diccionario
+    private static int size; // Número de elementos en el diccionario
+    private InsertionOrderList<K> insertionOrder;
 
     public Dict() {
         this.capacity = INITIAL_CAPACITY;
         this.table = new Object[capacity];
         this.size = 0;
+        this.insertionOrder = new InsertionOrderList<>();
+    }
+
+    // Clase estática interna para la lista enlazada
+    private static class InsertionOrderList<K> {
+        private Node<K> head; // Primer nodo de la lista
+        private Node<K> tail; // Último nodo de la lista
+
+        public InsertionOrderList() {
+            this.head = null;
+            this.tail = null;
+        }
+
+        // Añadir una clave al final de la lista
+        public void add(K key) {
+            Node<K> newNode = new Node<>(key);
+            if (tail == null) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
+            }
+        }
+
+        // Eliminar una clave de la lista
+        public void remove(K key) {
+            Node<K> current = head;
+            Node<K> previous = null;
+
+            while (current != null) {
+                if (current.key.equals(key)) {
+                    if (previous == null) {
+                        head = current.next; // Eliminar el primer nodo
+                    } else {
+                        previous.next = current.next; // Eliminar un nodo intermedio o el último
+                    }
+                    if (current == tail) {
+                        tail = previous; // Actualizar tail si se elimina el último nodo
+                    }
+                    return;
+                }
+                previous = current;
+                current = current.next;
+            }
+        }
+
+        // Obtener todas las claves en orden de inserción
+        public K[] getKeys(K[] array) {
+            Node<K> current = head;
+            int index = 0;
+            while (current != null) {
+                array[index++] = current.key; // Llenar el array con las claves
+                current = current.next;
+            }
+            return array;
+        }
+
+        // Métodoo adicional para obtener el tipo de la primera clave
+        public K[] getKeys() {
+            if (head == null) {
+                return (K[]) new Object[0]; // Devolver un array vacío si no hay claves
+            }
+            K[] keyArray = (K[]) java.lang.reflect.Array.newInstance(head.key.getClass(), size);
+            return getKeys(keyArray);
+        }
+
+        // Clase estática interna para los nodos de la lista enlazada
+        private static class Node<K> {
+            K key;
+            Node<K> next;
+
+            public Node(K key) {
+                this.key = key;
+                this.next = null;
+            }
+        }
     }
 
     private void mensaje(K key) {
@@ -46,6 +124,7 @@ public class Dict<K, V> {
         } else {
             previous.next = newNode;
         }
+        insertionOrder.add(key); // Añadir la clave a la lista enlazada
         size++;
         if ((double) size / capacity > LOAD_FACTOR) {
             reSize();
@@ -83,6 +162,7 @@ public class Dict<K, V> {
                 } else {
                     prev.next = current.next;
                 }
+                insertionOrder.remove(key); // Eliminar la clave de la lista enlazada
                 size--;
                 return current.value;
             }
@@ -127,33 +207,23 @@ public class Dict<K, V> {
 
     public K[] keys() {
         if (size == 0) {
-            return (K[]) new Object[0]; // Return an empty array of type K
+            return (K[]) new Object[0]; // Devolver un array vacío si no hay claves
         }
-        K[] keyArray = (K[]) java.lang.reflect.Array.newInstance(((Node) table[0]).key.getClass(), size);
-        int count = 0;
-
-        for (int i = 0; i < capacity; i++) {
-            Node current = (Node) table[i];
-            while (current != null) {
-                keyArray[count++] = current.key;
-                current = current.next;
-            }
-        }
-        return keyArray;
+        // Crear un array del tipo correcto usando reflection
+        K[] keyArray = (K[]) java.lang.reflect.Array.newInstance(insertionOrder.getKeys()[0].getClass(), size);
+        return insertionOrder.getKeys(keyArray); // Llenar el array con las claves
     }
 
 
     public V[] values() {
-        // Usamos Array.newInstance() para crear un arreglo genérico del tipo V
-        V[] valueArray = (V[]) java.lang.reflect.Array.newInstance(table.getClass().getComponentType(), size);
-        int count = 0;
-
-        for (int i = 0; i < capacity; i++) {
-            Node current = (Node) table[i];
-            while (current != null) {
-                valueArray[count++] = current.value;
-                current = current.next;
-            }
+        if (size == 0) {
+            return (V[]) new Object[0]; // Devolver un array vacío si no hay valores
+        }
+        // Crear un array del tipo correcto usando reflection
+        V[] valueArray = (V[]) java.lang.reflect.Array.newInstance(get(insertionOrder.getKeys()[0]).getClass(), size);
+        K[] keys = keys(); // Obtener las claves en orden de inserción
+        for (int i = 0; i < size; i++) {
+            valueArray[i] = get(keys[i]); // Llenar el array con los valores
         }
         return valueArray;
     }
@@ -216,24 +286,21 @@ public class Dict<K, V> {
         return result.toString();
     }
 
+    // Métodoo toString para imprimir el diccionario en orden de inserción
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder("{");
-        boolean first = true; // Flag to handle the first element (no comma before it)
+        boolean first = true;
 
-        // Iterate over all buckets in the hash table
-        for (int i = 0; i < capacity; i++) {
-            Node current = (Node) table[i];
-            while (current != null) {
-                if (!first) {
-                    result.append(", "); // Add a comma before each element except the first
-                }
-                result.append(current.key).append(": ").append(current.value); // Append key=value
-                first = false; // After the first element, set the flag to false
-                current = current.next; // Move to the next node in the linked list
+        K[] keys = keys(); // Obtener las claves en orden de inserción
+        for (K key : keys) {
+            if (!first) {
+                result.append(", ");
             }
+            result.append(key).append(": ").append(get(key));
+            first = false;
         }
-        result.append("}"); // Close the dictionary representation
+        result.append("}");
         return result.toString();
     }
 }

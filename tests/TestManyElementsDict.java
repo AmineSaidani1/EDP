@@ -127,6 +127,18 @@ public class TestManyElementsDict {
 
     @Test
     void testToStringDict() {
-        assertEquals("{Key0: 0, Key1: 1, Key2: 2, Key3: 3, Key4: 4, Key5: 5, Key6: 6, Key7: 7, Key8: 8, Key9: 9, Key10: 10, Key11: 11, Key12: 12, Key13: 13, Key14: 14, Key15: 15, Key16: 16, Key17: 17, Key18: 18, Key19: 19, Key20: 20, Key21: 21, Key22: 22, Key23: 23, Key24: 24, Key25: 25, Key26: 26, Key27: 27, Key28: 28, Key29: 29, Key30: 30, Key31: 31, Key32: 32, Key33: 33, Key34: 34, Key35: 35, Key36: 36, Key37: 37, Key38: 38, Key39: 39, Key40: 40, Key41: 41, Key42: 42, Key43: 43, Key44: 44, Key45: 45, Key46: 46, Key47: 47, Key48: 48, Key49: 49, Key50: 50, Key51: 51, Key52: 52, Key53: 53, Key54: 54, Key55: 55, Key56: 56, Key57: 57, Key58: 58, Key59: 59, Key60: 60, Key61: 61, Key62: 62, Key63: 63, Key64: 64, Key65: 65, Key66: 66, Key67: 67, Key68: 68, Key69: 69, Key70: 70, Key71: 71, Key72: 72, Key73: 73, Key74: 74, Key75: 75, Key76: 76, Key77: 77, Key78: 78, Key79: 79, Key80: 80, Key81: 81, Key82: 82, Key83: 83, Key84: 84, Key85: 85, Key86: 86, Key87: 87, Key88: 88, Key89: 89, Key90: 90, Key91: 91, Key92: 92, Key93: 93, Key94: 94, Key95: 95, Key96: 96, Key97: 97, Key98: 98, Key99: 99}", diccionario.toString());
+        assertEquals("{Key0: 0, Key1: 1, Key2: 2, Key3: 3, Key4: 4, Key5: 5, Key6: 6, Key7: 7, Key8: 8," +
+                " Key9: 9, Key10: 10, Key11: 11, Key12: 12, Key13: 13, Key14: 14, Key15: 15, Key16: 16, Key17: 17," +
+                " Key18: 18, Key19: 19, Key20: 20, Key21: 21, Key22: 22, Key23: 23, Key24: 24, Key25: 25," +
+                " Key26: 26, Key27: 27, Key28: 28, Key29: 29, Key30: 30, Key31: 31, Key32: 32, Key33: 33," +
+                " Key34: 34, Key35: 35, Key36: 36, Key37: 37, Key38: 38, Key39: 39, Key40: 40, Key41: 41," +
+                " Key42: 42, Key43: 43, Key44: 44, Key45: 45, Key46: 46, Key47: 47, Key48: 48, Key49: 49," +
+                " Key50: 50, Key51: 51, Key52: 52, Key53: 53, Key54: 54, Key55: 55, Key56: 56, Key57: 57," +
+                " Key58: 58, Key59: 59, Key60: 60, Key61: 61, Key62: 62, Key63: 63, Key64: 64, Key65: 65," +
+                " Key66: 66, Key67: 67, Key68: 68, Key69: 69, Key70: 70, Key71: 71, Key72: 72, Key73: 73," +
+                " Key74: 74, Key75: 75, Key76: 76, Key77: 77, Key78: 78, Key79: 79, Key80: 80, Key81: 81," +
+                " Key82: 82, Key83: 83, Key84: 84, Key85: 85, Key86: 86, Key87: 87, Key88: 88, Key89: 89," +
+                " Key90: 90, Key91: 91, Key92: 92, Key93: 93, Key94: 94, Key95: 95, Key96: 96, Key97: 97, " +
+                "Key98: 98, Key99: 99}", diccionario.toString());
     }
 }
